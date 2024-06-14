@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public interface BookService {
+    Optional<Book> get(Long id);
 
     List<Book> getBooks();
 
     void add(Book book);
-    Optional<Book> get(Long id);
 
     void delete(Long id);
 
