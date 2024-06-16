@@ -27,7 +27,7 @@
 <a href="${pageContext.request.contextPath}/admin/books/all">Book list</a>
 </nav>
 <h3>Book form</h3>
-<form:form action="/admin/books/form" method="post"  modelAttribute="book">
+<form:form action="/admin/books/form/add" method="post"  modelAttribute="book">
     <form:hidden path="id" id="id"/>
 
     <label for="isbn">isbn:</label>
