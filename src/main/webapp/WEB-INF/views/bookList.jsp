@@ -7,55 +7,57 @@
 <html>
 <head>
     <title>Book List</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-        th, td {
-            padding: 0.2rem;
-            border: 1px solid black;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
-<nav>
-    <a href="${pageContext.request.contextPath}/admin/books/form">Add new book</a><br><br>
-    <a href="${pageContext.request.contextPath}/admin/books/all">Book list</a><br><br>
+<div class="container py-4 px-3 mx-auto">
+<nav class="navbar navbar-expand-lg navbar-dark borer-top bg-light rounded-2">
+  <div class="px-4 py-3"> <a href="${pageContext.request.contextPath}">Home</a> </div>
+    <div class="px-4 py-3"> <a href="${pageContext.request.contextPath}/admin/books/form">Add new book</a></div>
+    <div class="px-4 py-3">  <a href="${pageContext.request.contextPath}/admin/books/all">Book list</a></div>
 
 </nav>
-<table>
-    <thead>
-    <th>id</th>
-    <th>isbn</th>
-    <th>title</th>
-    <th>author</th>
-    <th>publisher</th>
-    <th>type</th>
-    <th>edit book</th>
-    <th>delete book</th>
+
+    <header class="px-4 py-3 d-flex justify-content-between align-items-md-center pb-3 mb-5 border-bottom border-top bg-light">
+        <h3>Book list</h3>
+    </header>
+
+    <div class="px-4 py-3 bg-light rounded-2">
+
+    <table>
+        <thead class="border-bottom">
+
+        <th class="px-4 py-3">Id</th>
+        <th class="px-4 py-3">Isbn number</th>
+    <th class="px-4 py-3">Title</th>
+    <th class="px-4 py-3">Author</th>
+    <th class="px-4 py-3">Publisher</th>
+    <th class="px-4 py-3">Type</th>
+    <th class="px-4 py-3">Edit book</th>
+    <th class="px-4 py-3">Delete book</th>
     </thead>
     <tbody>
 
     <c:forEach items="${books}" var="book">
         <tr>
-            <td>${book.id}</td>
-            <td>${book.isbn}</td>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>${book.publisher}</td>
-            <td>${book.type}</td>
+           <td class="px-4 py-3">${book.id}</td>
+            <td class="px-4 py-3">${book.isbn}</td>
+            <td class="px-4 py-3">${book.title}</td>
+            <td class="px-4 py-3">${book.author}</td>
+            <td class="px-4 py-3">${book.publisher}</td>
+            <td class="px-4 py-3">${book.type}</td>
 
 
-            <td>
+            <td class="px-4 py-3">
                 <form:form action="/admin/books/edit/${book.id}" method="post" cssStyle="display:inline;">
                     <input type="submit" value="Edit"/>
                 </form:form>
             </td>
-            <td>
+            <td class="px-4 py-3">
                 <form:form action="/admin/books/delete/${book.id}" method="post" cssStyle="display:inline;"
-                           onClick="return confirm('Are you sure you want to delete book?')">
+                           onClick="return confirm('Are you sure you want to delete this book?')">
                     <input type="submit" value="Delete"/>
                 </form:form>
             </td>
@@ -63,5 +65,7 @@
     </c:forEach>
     </tbody>
 </table>
+    </div>
+</div>
 </body>
 </html>
