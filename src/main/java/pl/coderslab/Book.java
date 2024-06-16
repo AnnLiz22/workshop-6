@@ -1,9 +1,6 @@
 package pl.coderslab;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -14,7 +11,8 @@ import javax.persistence.*;
 @Entity
 @Transactional
 @Table(name="books")
-
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     @Id

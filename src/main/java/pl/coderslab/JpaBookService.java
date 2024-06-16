@@ -13,6 +13,7 @@ import java.util.Optional;
 public class JpaBookService implements BookService {
 
     private final BookRepository bookRepository;
+    private final BookDao bookDao;
 
     @Override
     public List<Book> getBooks() {
@@ -27,16 +28,19 @@ public class JpaBookService implements BookService {
 
     @Override
     public void add(Book book) {
-        bookRepository.insert(book);
+      //  bookRepository.insert(book);
+        bookDao.saveBook(book);
     }
 
     @Override
     public void delete(Long id) {
-        bookRepository.removeBookById(id);
+        //bookRepository.removeBookById(id);
+        bookDao.deleteById(id);
     }
 
     @Override
     public void update(Book book) {
-        bookRepository.update(book);
+        //bookRepository.update(book);
+        bookDao.update(book);
     }
 }
