@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,16 +19,23 @@ import java.util.Optional;
 public class ManageBookController {
 
     private final JpaBookService jpaBookService;
+    private final MockBookService mockBookService;
 
     @GetMapping
     public String showPosts(Model model) {
         List<Book> books = jpaBookService.getBooks();
-        model.addAttribute("books", books);
+        model.addAttribute("book", new Book());
         return "bookList";
     }
 
-    @PostMapping
-    public String processBookForm(@ModelAttribute Book book, BindingResult bindingResult) {
+    @GetMapping("/form")
+    public String showBookForm(Model model) {
+        model.addAttribute("book", new Book());
+        return "bookForm";
+    }
+
+    @PostMapping("/form/add")
+    public String processBookForm(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "bookForm";
         }
@@ -38,7 +46,7 @@ public class ManageBookController {
             jpaBookService.update(book);
             log.info("Updated {}", book);
         }
-        return "redirect:/admin/books";
+        return "redirect:/admin/books/all";
     }
 
     @PostMapping("/edit/{id}")
