@@ -2,6 +2,7 @@ package pl.coderslab;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
