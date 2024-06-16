@@ -18,7 +18,7 @@
 <div class="container py-4 px-3 mx-auto">
 
 <nav class="navbar navbar-expand-lg navbar-dark border-top bg-light">
-    <div class="px-4 py-3"> <a href="${pageContext.request.contextPath}">Home</a> </div>
+    <div class="px-4 py-3"> <a href="${pageContext.request.contextPath}/">Home</a> </div>
     <div class="px-4 py-3"> <a href="${pageContext.request.contextPath}/admin/books/form">Add new book</a></div>
     <div class="px-4 py-3">  <a href="${pageContext.request.contextPath}/admin/books/all">Book list</a></div>
 </nav>
