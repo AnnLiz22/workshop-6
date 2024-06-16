@@ -43,4 +43,9 @@ public class JpaBookService implements BookService {
         //bookRepository.update(book);
         bookDao.update(book);
     }
+
+    public Book getBook(Long id){
+     Book book  =   bookDao.getBookById(id);
+        return book;
+    }
 }

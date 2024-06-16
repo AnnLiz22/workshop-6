@@ -38,4 +38,9 @@ public class BookDao {
             entityManager.remove(book);
         }
     }
+
+    public Book getBookById(Long id){
+        Book book = findById(id);
+        return book;
+    }
 }
