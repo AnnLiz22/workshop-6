@@ -27,13 +27,17 @@
 </nav>
 <table>
     <thead>
+    <th>id</th>
     <th>isbn</th>
     <th>title</th>
     <th>author</th>
     <th>publisher</th>
     <th>type</th>
+    <th>edit book</th>
+    <th>delete book</th>
     </thead>
     <tbody>
+
     <c:forEach items="${books}" var="book">
         <tr>
             <td>${book.id}</td>
