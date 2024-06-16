@@ -19,13 +19,19 @@ import java.util.Optional;
 public class ManageBookController {
 
     private final JpaBookService jpaBookService;
-    private final MockBookService mockBookService;
 
     @GetMapping
     public String showPosts(Model model) {
-        List<Book> books = jpaBookService.getBooks();
+        jpaBookService.getBooks();
         model.addAttribute("book", new Book());
         return "bookList";
+    }
+
+    @GetMapping("/book/{id}")
+    public String showBook(@PathVariable Long id, Model model) {
+        Book book = jpaBookService.getBook(id);
+        model.addAttribute("book", book);
+        return "book";
     }
 
     @GetMapping("/form")
