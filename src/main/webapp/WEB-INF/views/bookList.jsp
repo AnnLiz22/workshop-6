@@ -61,6 +61,12 @@
                     <input type="submit" value="Delete"/>
                 </form:form>
             </td>
+            <td class="px-4 py-3">
+                <form:form action="/admin/books/book/${book.id}" method="get" cssStyle="display:inline;">
+                    <input type="submit" value="Show">
+                </form:form>
+
+            </td>
         </tr>
     </c:forEach>
     </tbody>
