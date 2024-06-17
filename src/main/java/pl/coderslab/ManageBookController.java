@@ -57,8 +57,7 @@ public class ManageBookController {
 
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, Model model){
-        Optional<Book> book = jpaBookService.get(id);
-        model.addAttribute("book", book);
+        model.addAttribute("book", jpaBookService.get(id));
         return "bookForm";
     }
 
