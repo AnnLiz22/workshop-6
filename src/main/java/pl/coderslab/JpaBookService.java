@@ -3,6 +3,7 @@ package pl.coderslab;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,16 +21,22 @@ public class JpaBookService implements BookService {
         return bookRepository.findAll();
     }
 
-    @Override
+  @Override
+  public void add(Book book) {
+    // bookDao.saveBook(book);
+    bookRepository.insert(
+        book.getIsbn(),
+        book.getTitle(),
+        book.getAuthor(),
+        book.getPublisher(),
+        book.getType().getId()
+    );
+  }
+
+  @Override
     public Optional<Book> get(Long id) {
        Optional<Book> book = bookRepository.getBookById(id);
        return book;
-    }
-
-    @Override
-    public void add(Book book) {
-      //  bookRepository.insert(book);
-        bookDao.saveBook(book);
     }
 
     @Override
