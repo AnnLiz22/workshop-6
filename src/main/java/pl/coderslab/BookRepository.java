@@ -23,15 +23,20 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Transactional
     @Query(value = "insert into books (isbn, title, author, publisher, type_id) values (:isbn, :title, :author, :publisher, :typeId)", nativeQuery = true)
     void insert(@Param("isbn") String isbn,
-          @Param("title") String title,
-          @Param("author") String author,
-          @Param("publisher") String publisher,
-          @Param("typeId") Long typeId);
+                @Param("title") String title,
+                @Param("author") String author,
+                @Param("publisher") String publisher,
+                @Param("typeId") Long typeId);
 
     @Query("delete from Book b where b.id = ?1")
     Optional<Book> removeBookById(Long id);
 
     @Modifying
-    @Query(value = "update books set isbn = ?", nativeQuery = true)
-    void update(Book book);
+    @Query(value = "update books set isbn = :isbn, title = :title, author = :author, publisher = :publisher, type_id = :typeId where id = :id", nativeQuery = true)
+    void update(@Param("isbn") String isbn,
+                @Param("title") String title,
+                @Param("author") String author,
+                @Param("publisher") String publisher,
+                @Param("typeId") Long typeId,
+                @Param("id") Long id);
 }
