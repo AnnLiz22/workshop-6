@@ -3,7 +3,9 @@ package pl.coderslab;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +20,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAll();
 
     @Modifying
-    @Query(value = "insert into books (isbn, title, author, publisher, type) values (?, ?, ?, ?, ?)", nativeQuery = true)
-    void insert(Book book);
+    @Transactional
+    @Query(value = "insert into books (isbn, title, author, publisher, type_id) values (:isbn, :title, :author, :publisher, :typeId)", nativeQuery = true)
+    void insert(@Param("isbn") String isbn,
+          @Param("title") String title,
+          @Param("author") String author,
+          @Param("publisher") String publisher,
+          @Param("typeId") Long typeId);
 
     @Query("delete from Book b where b.id = ?1")
     Optional<Book> removeBookById(Long id);
