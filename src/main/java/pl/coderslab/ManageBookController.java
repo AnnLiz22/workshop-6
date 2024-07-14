@@ -19,11 +19,13 @@ import java.util.Optional;
 public class ManageBookController {
 
     private final JpaBookService jpaBookService;
+    private final TypeRepository typeRepository;
 
     @GetMapping
     public String showPosts(Model model) {
         jpaBookService.getBooks();
         model.addAttribute("book", new Book());
+        model.addAttribute("type", typeRepository.findAll());
         return "bookList";
     }
 
@@ -78,4 +80,8 @@ public class ManageBookController {
         return jpaBookService.getBooks();
     }
 
+    @ModelAttribute("types")
+    public  List<Type> getBookTypes(){
+        return typeRepository.findAll();
+    }
 }
