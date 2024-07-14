@@ -29,7 +29,7 @@
     </header>
     <div class="px-4 py-3 bg-light rounded-2">
 
-    <form:form action="/admin/books/form/add" method="post"  modelAttribute="book">
+    <form:form action="/admin/books/form/add" method="post"  modelAttribute="book" >
     <form:hidden path="id" id="id"/>
 
     <label for="isbn">Isbn number: </label>
@@ -45,7 +45,9 @@
     <form:input path="publisher" id="publisher" required="true"/><br><br>
 
     <label for="type">Type: </label>
-    <form:input path="type" id="type" required="true"/><br><br>
+    <form:select path="type.id" id="type" required=" true"><br><br>
+        <form:options items="${types}" />
+    </form:select>
 
     <button type="submit">Submit</button>
 </form:form>
