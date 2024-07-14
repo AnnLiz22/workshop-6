@@ -30,7 +30,7 @@ import java.util.Locale;
 @ComponentScan(basePackages = "pl.coderslab")
 @EnableWebMvc
 @EnableTransactionManagement
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "pl.coderslab")
 public class AppConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
