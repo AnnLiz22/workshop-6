@@ -1,6 +1,5 @@
 package pl.coderslab;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,37 +22,32 @@ public class ManageBookController {
 
     @GetMapping
     public String showPosts(Model model) {
-        jpaBookService.getBooks();
+        model.addAttribute("books", jpaBookService.getBooks());
         model.addAttribute("book", new Book());
-        model.addAttribute("type", typeRepository.findAll());
         return "bookList";
     }
 
     @GetMapping("/book/{id}")
     public String showBook(@PathVariable Long id, Model model) {
-        Book book = jpaBookService.getBook(id);
+        Optional<Book> book = jpaBookService.get(id);
         model.addAttribute("book", book);
         return "book";
     }
 
-    @GetMapping("/form")
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String showBookForm(Model model) {
         model.addAttribute("book", new Book());
         return "bookForm";
     }
 
-    @PostMapping("/form/add")
-    public String processBookForm(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String processBookForm(@Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "bookForm";
         }
-        if (book.getId() == null) {
-            jpaBookService.add(book);
+            jpaBookService.save(book);
             log.info("Saved {}", book);
-        } else {
-            jpaBookService.update(book);
-            log.info("Updated {}", book);
-        }
+
         return "redirect:/admin/books/all";
     }
 
