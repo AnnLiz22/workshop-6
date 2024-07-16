@@ -37,6 +37,7 @@ public class ManageBookController {
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String showBookForm(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("type", typeRepository.findAll());
         return "bookForm";
     }
 
