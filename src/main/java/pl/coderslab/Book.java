@@ -29,7 +29,6 @@ public class Book {
 
     @NotNull
     @ManyToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_id")
     private Type type;
 
 }
