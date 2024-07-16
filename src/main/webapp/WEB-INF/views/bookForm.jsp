@@ -34,20 +34,30 @@
 
     <label for="isbn">Isbn number: </label>
     <form:input path="isbn" id="isbn"/><br><br>
+        <form:errors path="isbn" /><br>
 
-    <label for="title">Title: </label>
+
+        <label for="title">Title: </label>
     <form:input path="title" id="title" /><br><br>
+        <form:errors path="title" /><br>
 
-    <label for="author">Author: </label>
+
+        <label for="author">Author: </label>
     <form:input path="author" id="author" /><br><br>
+        <form:errors path="author" /><br>
 
-    <label for="publisher">Publisher: </label>
+
+        <label for="publisher">Publisher: </label>
     <form:input path="publisher" id="publisher" /><br><br>
+        <form:errors path="publisher" /><br>
 
-    <label for="type">Type: </label>
-    <form:select path="type" id="type" ><br><br>
+
+        <label for="type">Type: </label>
+    <form:select path="type" id="type" ><br>
         <form:option value="" label="Select Type"/>
         <form:options items="${types}" itemValue="id" itemLabel="name" />
+        <form:errors path="type" /><br>
+
     </form:select>
 
     <button type="submit">Submit</button>

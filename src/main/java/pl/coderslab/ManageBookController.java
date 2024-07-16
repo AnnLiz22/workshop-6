@@ -42,41 +42,50 @@ public class ManageBookController {
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String processBookForm(@Valid Book book, BindingResult bindingResult) {
+    public String processBookForm(@Valid @ModelAttribute Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "bookForm";
         }
-            jpaBookService.save(book);
-            log.info("Saved {}", book);
+        jpaBookService.save(book);
+        log.info("Saved {}", book);
 
         return "redirect:/admin/books/all";
     }
 
-    @PostMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, Model model){
+    @RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
+    public String showEditBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", jpaBookService.get(id));
         return "bookForm";
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String editBook(@Valid Book book, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "bookForm";
+        }
+        jpaBookService.save(book);
+        return "redirect:/admin/books/all";
+    }
+
     @PostMapping("/delete/{id}")
-    public String deleteBook(@PathVariable Long id){
+    public String deleteBook(@PathVariable Long id) {
         jpaBookService.delete(id);
         log.info("Deleted book with id {}", id);
         return "redirect:/admin/books/all";
     }
 
     @GetMapping("/all")
-    public String showAllBooks(){
+    public String showAllBooks() {
         return "bookList";
     }
 
     @ModelAttribute("books")
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         return jpaBookService.getBooks();
     }
 
     @ModelAttribute("types")
-    public  List<Type> getBookTypes(){
+    public List<Type> getBookTypes() {
         return typeRepository.findAll();
     }
 }
