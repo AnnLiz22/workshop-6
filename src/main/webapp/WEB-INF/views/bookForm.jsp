@@ -29,23 +29,26 @@
     </header>
     <div class="px-4 py-3 bg-light rounded-2">
 
-    <form:form action="/admin/books/form/add" method="post"  modelAttribute="book">
+    <form:form method="post"  modelAttribute="book" >
     <form:hidden path="id" id="id"/>
 
     <label for="isbn">Isbn number: </label>
-    <form:input path="isbn" id="isbn" required="true"/><br><br>
+    <form:input path="isbn" id="isbn"/><br><br>
 
     <label for="title">Title: </label>
-    <form:input path="title" id="title" required="true"/><br><br>
+    <form:input path="title" id="title" /><br><br>
 
     <label for="author">Author: </label>
-    <form:input path="author" id="author" required="true"/><br><br>
+    <form:input path="author" id="author" /><br><br>
 
     <label for="publisher">Publisher: </label>
-    <form:input path="publisher" id="publisher" required="true"/><br><br>
+    <form:input path="publisher" id="publisher" /><br><br>
 
     <label for="type">Type: </label>
-    <form:input path="type" id="type" required="true"/><br><br>
+    <form:select path="type" id="type" ><br><br>
+        <form:option value="" label="Select Type"/>
+        <form:options items="${types}" itemValue="id" itemLabel="name" />
+    </form:select>
 
     <button type="submit">Submit</button>
 </form:form>

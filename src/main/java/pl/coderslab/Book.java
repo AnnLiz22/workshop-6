@@ -1,27 +1,35 @@
 package pl.coderslab;
 
-import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
+import javax.validation.constraints.Size;
 
+import lombok.*;
+import org.hibernate.validator.constraints.ISBN;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Transactional
-@Table(name="books")
-@RequiredArgsConstructor
-@AllArgsConstructor
+@Table(name = "books")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    //@ISBN
     private String isbn;
+
+    @Size(min = 2, max = 50)
     private String title;
+
     private String author;
     private String publisher;
-    private String type;
+
+    @NotNull
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id")
+    private Type type;
 
 }
