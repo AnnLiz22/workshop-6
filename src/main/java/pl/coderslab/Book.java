@@ -1,9 +1,7 @@
 package pl.coderslab;
-
-import javax.validation.constraints.Min;
-
 import lombok.*;
 import org.hibernate.validator.constraints.ISBN;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,20 +16,20 @@ public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     //@ISBN
     private String isbn;
 
     @NotNull
-    @Size(min=2, max = 50)
+    @Size(min = 2, max = 50)
     private String title;
 
     @NotNull
     private String author;
     private String publisher;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Type type;
 
 }

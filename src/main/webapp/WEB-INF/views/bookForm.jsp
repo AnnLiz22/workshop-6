@@ -31,30 +31,30 @@
     <div class="px-4 py-3 bg-light rounded-2">
 
         <form:form method="post" modelAttribute="book">
-            <form:hidden path="id" id="id"/>
+            <form:hidden path="id" id="id" value="${book.id}"/>
 
             <label for="isbn">Isbn number: </label>
-            <form:input path="isbn" id="isbn"/><br><br>
+            <form:input path="isbn" id="isbn" value="${book.isbn}"/><br><br>
             <form:errors path="isbn"/><br>
 
 
             <label for="title">Title: </label>
-            <form:input path="title" id="title"/><br><br>
+            <form:input path="title" id="title" value="${book.title}"/><br><br>
             <form:errors path="title"/><br>
 
 
             <label for="author">Author: </label>
-            <form:input path="author" id="author"/><br><br>
+            <form:input path="author" id="author" value="${book.author}"/><br><br>
             <form:errors path="author"/><br>
 
 
             <label for="publisher">Publisher: </label>
-            <form:input path="publisher" id="publisher"/><br><br>
+            <form:input path="publisher" id="publisher" value="${book.publisher}"/><br><br>
             <form:errors path="publisher"/><br>
 
 
             <label for="type">Type: </label>
-            <form:select path="type.id" id="type"><br>
+            <form:select path="type.id" id="type" value="${book.type}"><br>
                 <form:option value="" label="Select Type"/>
                 <form:options items="${types}" itemValue="id" itemLabel="name"/>
                 <form:errors path="type"/><br>
