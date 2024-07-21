@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,7 @@ public class ManageBookController {
 
     @GetMapping("/book/{id}")
     public String showBook(@PathVariable Long id, Model model) {
-        Optional<Book> book = jpaBookService.get(id);
-        model.addAttribute("book", book);
+        model.addAttribute("book", jpaBookService.get(id).orElseThrow(EntityNotFoundException::new));
         return "book";
     }
 
@@ -42,35 +42,41 @@ public class ManageBookController {
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String processBookForm(@Valid @ModelAttribute Book book, BindingResult bindingResult) {
+    public String processBookForm(@Valid Book book, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             return "bookForm";
         }
+
         jpaBookService.save(book);
-        log.info("Saved {}", book);
+       // log.info("Saved {}", book);
 
         return "redirect:/admin/books/all";
     }
 
-    @RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String showEditBook(@PathVariable Long id, Model model) {
-        model.addAttribute("book", jpaBookService.get(id));
+        Optional<Book> book = jpaBookService.get(id);
+        book.ifPresent(value -> model.addAttribute("book", value));
         return "bookForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String editBook(@Valid Book book, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "bookForm";
         }
         jpaBookService.save(book);
+       // log.info("Book {} updated", book);
         return "redirect:/admin/books/all";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
         jpaBookService.delete(id);
-        log.info("Deleted book with id {}", id);
+      //  log.info("Deleted book with id {}", id);
+
         return "redirect:/admin/books/all";
     }
 
@@ -86,6 +92,7 @@ public class ManageBookController {
 
     @ModelAttribute("types")
     public List<Type> getBookTypes() {
-        return typeRepository.findAll();
+        return this.typeRepository.findAll();
     }
+
 }
