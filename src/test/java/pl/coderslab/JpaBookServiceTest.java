@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -57,5 +58,22 @@ class JpaBookServiceTest {
 
         assertNotNull(jpaBookService.save(book));
         assertEquals(book.getAuthor(), result.getAuthor());
+    }
+    @Test
+    void shouldReturnBookWhenBookExists(){
+        Book book = new Book();
+        book.setId(1L);
+        book.setTitle("It");
+        book.setAuthor("King");
+
+        when(bookRepository.findById(1L)).thenReturn(java.util.Optional.of(book));
+        Assertions.assertThat(book).isNotNull();
+    }
+    
+    @Test
+    void shouldReturnNullWhenBookDoesntExist(){
+        when(bookRepository.findById(1L)).thenReturn(Optional.empty());
+        Optional<Book> book = jpaBookService.get(1L);
+        Assertions.assertThat(book).isNull();
     }
 }
