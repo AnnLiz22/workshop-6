@@ -48,7 +48,7 @@ public class ManageBookController {
             return "bookForm";
         }
 
-        jpaBookService.save(book);
+        jpaBookService.saveBook(book);
        // log.info("Saved {}", book);
 
         return "redirect:/admin/books/all";
