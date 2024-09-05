@@ -33,7 +33,4 @@ public class JpaBookService implements BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book saveBook(Book book){
-       return bookRepository.save(book);
-    }
 }
