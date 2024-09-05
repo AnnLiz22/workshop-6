@@ -19,8 +19,8 @@ public class JpaBookService implements BookService {
     }
 
     @Override
-    public void save(Book book) {
-        bookRepository.save(book);
+    public Book save(Book book) {
+        return bookRepository.save(book);
     }
 
     @Override
@@ -33,4 +33,7 @@ public class JpaBookService implements BookService {
         bookRepository.deleteById(id);
     }
 
+    public Book saveBook(Book book){
+       return bookRepository.save(book);
+    }
 }
